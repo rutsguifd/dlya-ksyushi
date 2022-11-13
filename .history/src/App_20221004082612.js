@@ -1,4 +1,3 @@
-import { div } from "@tensorflow/tfjs";
 import { useEffect, useState } from "react";
 import Input from "./components/Input";
 import {
@@ -8,8 +7,6 @@ import {
 import { det } from "./utils/determinant";
 import { gauss } from "./utils/gauss";
 import { inverse } from "./utils/inverse";
-import { get_yacobi_counter, method_yacobi } from "./utils/yakobi";
-import { method_zeidel } from "./utils/zeidel";
 
 function App() {
   const [columnCount, setColumnCount] = useState(3);
@@ -20,11 +17,8 @@ function App() {
   );
   const [oneDimArray, setOneDimArray] = useState(Array(columnCount).fill(1));
   const [solution, setSolution] = useState([]);
-  const [history, setHistory] = useState([]);
-  const [history1, setHistory1] = useState([]);
   const [deter, setDeter] = useState(0);
   const [inversed, setInversed] = useState([]);
-  const [eps, setEps] = useState(0.25);
   const onClickHandler = () => {
     setSolution(gauss(JSON.parse(JSON.stringify(twoDimArray)), oneDimArray));
     setDeter(det(JSON.parse(JSON.stringify(twoDimArray))));
@@ -112,77 +106,22 @@ function App() {
       <hr />
       {/* <h1>{deter}</h1> */}
       <hr />
-      <div style={{ display: "flex" }}>
-        {solution != "matrica me sumisna" ? (
-          inversed.map((items, ind) => {
-            return (
-              <div
-                key={ind}
-                style={{ margin: 10, display: "flex", flexDirection: "column" }}
-              >
-                {items.map((item, ind2) => (
-                  <h2 key={ind2}>{item}</h2>
-                ))}
-              </div>
-            );
-          })
-        ) : (
-          <div>ne sumisna</div>
-        )}
-      </div>
+      {/* <div style={{ display: "flex" }}>
+        {inversed.map((items, ind) => {
+          return (
+            <div
+              key={ind}
+              style={{ margin: 10, display: "flex", flexDirection: "column" }}
+            >
+              {items.map((item, ind2) => (
+                <h2 key={ind2}>{item}</h2>
+              ))}
+            </div>
+          );
+        })}
+      </div> */}
       <hr />
-      <Input onChange={(e) => setEps(+e.target.value)} />
-      <hr />
-      <div>
-        <button
-          onClick={() =>
-            setHistory(
-              method_yacobi(
-                JSON.parse(JSON.stringify(twoDimArray)),
-                JSON.parse(JSON.stringify(oneDimArray)),
-                eps
-              )
-            )
-          }
-        >
-          yakobi
-        </button>
-        {history.map((x, i) => (
-          <div
-            style={{ display: "flex", flexDirection: "column", margin: 10 }}
-            key={i}
-          >
-            {x.map((el, i1) => (
-              <div key={i1}> {el} </div>
-            ))}
-          </div>
-        ))}
-      </div>
-      <div>
-        <button
-          onClick={() =>
-            setHistory1(
-              method_zeidel(
-                JSON.parse(JSON.stringify(twoDimArray)),
-                JSON.parse(JSON.stringify(oneDimArray)),
-                eps
-              )
-            )
-          }
-        >
-          zeidel
-        </button>
-        {history1.map((x, i) => (
-          <div
-            style={{ display: "flex", flexDirection: "column", margin: 10 }}
-            key={i}
-          >
-            {x.map((el, i1) => (
-              <div key={i1}> {el} </div>
-            ))}
-          </div>
-        ))}
-      </div>
+      <div></div>
     </div>
   );
 }

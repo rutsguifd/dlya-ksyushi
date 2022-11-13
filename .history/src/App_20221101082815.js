@@ -8,7 +8,7 @@ import {
 import { det } from "./utils/determinant";
 import { gauss } from "./utils/gauss";
 import { inverse } from "./utils/inverse";
-import { get_yacobi_counter, method_yacobi } from "./utils/yakobi";
+import { method_yacobi } from "./utils/yakobi";
 import { method_zeidel } from "./utils/zeidel";
 
 function App() {

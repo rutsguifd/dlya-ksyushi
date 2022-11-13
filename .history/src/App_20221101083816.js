@@ -172,6 +172,7 @@ function App() {
         >
           zeidel
         </button>
+        <div>{get_yacobi_counter()}</div>
         {history1.map((x, i) => (
           <div
             style={{ display: "flex", flexDirection: "column", margin: 10 }}
